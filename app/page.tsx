@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-// ─── Floating Lips (your original component, adapted) ───────────────────────
+// ─── Floating Lips ─────────────────────────────────────────────────────────
 interface Lip {
   x: number; y: number;
   vx: number; vy: number;
@@ -107,14 +107,12 @@ const FloatingLips = memo(() => {
   }, []);
 
   const staticShuffle = [1, 5, 3, 7, 2, 6, 4, 1, 5, 3];
-  const isAndroid = typeof window !== "undefined" && /Android/i.test(navigator.userAgent);
-  const lipCount = isAndroid ? 6 : 10;
-
+  
   return (
     <div ref={containerRef} className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {Array.from({ length: lipCount }).map((_, i) => (
-        <div key={i} className="absolute" style={{ width: "80px", height: "80px", willChange: "transform" }}>
-          <Image src={`/lips/${staticShuffle[i]}.png`} alt="" width={80} height={80} className="object-contain w-full h-full" />
+      {staticShuffle.map((imgId, i) => (
+        <div key={i} className="absolute" style={{ width: "80px", height: "80px", willChange: "transform", top: -200 }}>
+          <Image src={`/lips/${imgId}.png`} alt="" width={80} height={80} className="object-contain w-full h-full" />
         </div>
       ))}
     </div>
@@ -123,9 +121,9 @@ const FloatingLips = memo(() => {
 FloatingLips.displayName = "FloatingLips";
 
 // ─── Impact Text Component ────────────────────────────────────────────────────
-const ImpactText = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+const ImpactText = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => (
   <span className={`font-black uppercase tracking-tighter leading-none ${className}`}
-    style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}>
+    style={{ fontFamily: "'Impact', 'Arial Black', sans-serif", ...style }}>
     {children}
   </span>
 );
@@ -140,7 +138,7 @@ const SlapDemo = () => {
     const rand = Math.random();
     const level = rand < 0.4 ? "soft" : rand < 0.75 ? "medium" : "hard";
     setCount(p => p + 1);
-    setIntensity(level);
+    setIntensity(level as any);
     setBurst(true);
     setTimeout(() => { setBurst(false); setIntensity(null); }, 400);
   };
@@ -155,11 +153,11 @@ const SlapDemo = () => {
         style={{
           width: 200, height: 200,
           borderRadius: "50%",
-          border: `3px solid ${burst ? (colors[intensity!] ?? "#333") : "#222"}`,
-          background: burst ? `radial-gradient(circle, ${colors[intensity!] ?? "#cc0000"}22 0%, #0a0a0a 70%)` : "#0a0a0a",
+          border: `3px solid ${burst && intensity ? colors[intensity] : "#222"}`,
+          background: burst && intensity ? `radial-gradient(circle, ${colors[intensity]}22 0%, #0a0a0a 70%)` : "#0a0a0a",
           transition: "all 0.15s ease",
           transform: burst ? "scale(0.94)" : "scale(1)",
-          boxShadow: burst ? `0 0 60px ${colors[intensity!] ?? "#cc0000"}66` : "0 0 20px #cc000022",
+          boxShadow: burst && intensity ? `0 0 60px ${colors[intensity]}66` : "0 0 20px #cc000022",
         }}
         onClick={handleSlap}
       >
@@ -186,26 +184,21 @@ export default function SlapDroidLanding() {
 
   return (
     <main className="relative min-h-screen bg-[#080808] text-white overflow-x-hidden">
-      {/* Noise texture overlay */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]"
         style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px" }} />
 
-      {/* Floating Lips */}
       {mounted && <FloatingLips />}
 
-      {/* Red glow top */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full pointer-events-none z-0"
         style={{ background: "radial-gradient(ellipse, #cc000015 0%, transparent 70%)" }} />
 
-      {/* ── HERO ── */}
       <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center gap-8">
-
         <Badge variant="outline" className="border-red-900 text-red-500 bg-red-950/30 text-xs tracking-widest px-4 py-1 rounded-full">
           ANDROID · FREE · NO SIGNUP
         </Badge>
 
         <div className="flex flex-col items-center gap-2">
-          <ImpactText className="text-[clamp(72px,18vw,180px)] text-white" style={{}}>
+          <ImpactText className="text-[clamp(72px,18vw,180px)] text-white">
             SLAP
           </ImpactText>
           <ImpactText className="text-[clamp(72px,18vw,180px)]" style={{ color: "#cc0000" }}>
@@ -249,7 +242,6 @@ export default function SlapDroidLanding() {
 
       <Separator className="bg-zinc-900 relative z-10" />
 
-      {/* ── DEMO SECTION ── */}
       <section className="relative z-10 flex flex-col items-center justify-center py-24 px-6 gap-12">
         <div className="text-center">
           <ImpactText className="text-4xl md:text-6xl text-white">TRY IT</ImpactText>
@@ -260,10 +252,8 @@ export default function SlapDroidLanding() {
 
       <Separator className="bg-zinc-900 relative z-10" />
 
-      {/* ── HOW IT WORKS ── */}
       <section className="relative z-10 py-24 px-6 max-w-4xl mx-auto">
         <ImpactText className="text-4xl md:text-6xl text-white block text-center mb-16">HOW IT WORKS</ImpactText>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-zinc-900">
           {[
             { step: "01", title: "OPEN APP", desc: "Launch SlapDroid on your Android phone. No signup. No account. Just open." },
@@ -281,20 +271,13 @@ export default function SlapDroidLanding() {
 
       <Separator className="bg-zinc-900 relative z-10" />
 
-      {/* ── TRUST SECTION ── */}
       <section className="relative z-10 py-24 px-6 max-w-3xl mx-auto text-center">
         <ImpactText className="text-4xl md:text-5xl text-white block mb-4">WHAT DOES IT DO?</ImpactText>
         <p className="text-zinc-500 text-sm tracking-widest mb-12">AND WHAT DOES IT NOT DO</p>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
           <div className="border border-zinc-900 p-6">
             <p className="text-red-500 text-xs tracking-widest mb-4 font-black">IT DOES</p>
-            {[
-              "Detects slaps via accelerometer",
-              "Plays audio reactions",
-              "Counts your slaps",
-              "Works offline, always",
-            ].map((item, i) => (
+            {["Detects slaps via accelerometer", "Plays audio reactions", "Counts your slaps", "Works offline, always"].map((item, i) => (
               <p key={i} className="text-zinc-300 text-sm py-2 border-b border-zinc-900 last:border-0 flex items-center gap-2">
                 <span className="text-red-500">✓</span> {item}
               </p>
@@ -302,12 +285,7 @@ export default function SlapDroidLanding() {
           </div>
           <div className="border border-zinc-900 p-6">
             <p className="text-zinc-600 text-xs tracking-widest mb-4 font-black">IT DOES NOT</p>
-            {[
-              "Collect any data",
-              "Require internet",
-              "Need an account",
-              "Cost anything, ever",
-            ].map((item, i) => (
+            {["Collect any data", "Require internet", "Need an account", "Cost anything, ever"].map((item, i) => (
               <p key={i} className="text-zinc-500 text-sm py-2 border-b border-zinc-900 last:border-0 flex items-center gap-2">
                 <span className="text-zinc-700">✗</span> {item}
               </p>
@@ -318,14 +296,10 @@ export default function SlapDroidLanding() {
 
       <Separator className="bg-zinc-900 relative z-10" />
 
-      {/* ── FINAL CTA ── */}
       <section className="relative z-10 py-24 px-6 flex flex-col items-center gap-8 text-center">
         <ImpactText className="text-[clamp(48px,12vw,120px)] text-white leading-none">
-          DOWNLOAD.<br />
-          <span style={{ color: "#cc0000" }}>SLAP.</span><br />
-          REPEAT.
+          DOWNLOAD.<br /><span style={{ color: "#cc0000" }}>SLAP.</span><br />REPEAT.
         </ImpactText>
-
         <Button
           asChild
           size="lg"
@@ -336,11 +310,9 @@ export default function SlapDroidLanding() {
             ↓ GET SLAPDROID FREE
           </a>
         </Button>
-
         <p className="text-zinc-700 text-xs">Android only · Direct APK · No Play Store required</p>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer className="relative z-10 border-t border-zinc-900 py-8 px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <ImpactText className="text-lg text-zinc-700">SLAPDROID</ImpactText>
         <p className="text-zinc-700 text-xs tracking-widest">BUILT BY <a href="https://github.com/FrenzyDev-git" className="text-zinc-500 hover:text-white transition-colors">FRENZYDEV</a></p>
