@@ -62,7 +62,7 @@ export default function AboutUsPage() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               Still building. Still improving.
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-bold leading-tight neon-text">
               Built by one person.<br />
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 In a small room.
@@ -78,7 +78,9 @@ export default function AboutUsPage() {
         <section className="py-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto space-y-6">
 
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 space-y-5">
+<Card
+  className="relative overflow-visible bg-white/5 backdrop-blur-sm border p-8 md:p-10 space-y-5 glow-border"
+>
               <h2 className="text-2xl font-bold">The Origin</h2>
               <p className="text-muted-foreground leading-relaxed">
                 SlapMac existed on Mac. Nobody built it for Android. That was enough reason.

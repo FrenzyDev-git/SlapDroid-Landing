@@ -112,9 +112,9 @@ export default function SlapDroidLanding() {
 
           <div className="max-w-4xl mx-auto text-center space-y-8 relative z-20">
             {/* Title */}
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-tight text-balance">
-              <span className="text-foreground">Slap Your</span>{' '}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black leading-tight text-balance tracking-tight">
+              <span className="text-foreground electric-heading thunder-text">Slap Your</span>{' '}
+              <span className="neon-text electric-heading">
                 Phone.
               </span>
             </h1>
@@ -165,7 +165,9 @@ export default function SlapDroidLanding() {
         <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-border/50">
   <div className="max-w-4xl mx-auto">
     <div className="text-center mb-16">
-      <h2 className="text-5xl sm:text-6xl font-bold text-balance mb-4">How It Works</h2>
+      <h2 className="text-5xl sm:text-6xl font-black neon-text">
+        How It Works
+      </h2>
       <p className="text-lg text-muted-foreground">Get started in 3 simple steps</p>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -212,7 +214,7 @@ export default function SlapDroidLanding() {
         {/* CTA Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-border/50">
           <div className="max-w-2xl mx-auto text-center space-y-8">
-            <h2 className="text-4xl sm:text-5xl font-bold text-balance">
+            <h2 className="text-4xl sm:text-5xl font-bold text-balance neon-text">
               Ready to Slap?
             </h2>
             <p className="text-lg text-muted-foreground">

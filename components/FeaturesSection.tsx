@@ -52,7 +52,7 @@ export function FeaturesSection() {
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-20">
-          <h2 className="text-5xl sm:text-6xl font-bold text-balance mb-5">
+          <h2 className="text-5xl sm:text-6xl font-bold text-balance mb-5 neon-text">
             Features That Slap
           </h2>
           <p className="text-xl text-muted-foreground max-w-xl mx-auto">

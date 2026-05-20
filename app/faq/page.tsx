@@ -117,7 +117,7 @@ export default function FAQPage() {
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-5xl sm:text-6xl font-bold text-balance mb-4">
+              <h1 className="text-5xl sm:text-6xl font-bold text-balance mb-4 neon-text">
                 Frequently Asked Questions
               </h1>
               <p className="text-lg text-muted-foreground">
