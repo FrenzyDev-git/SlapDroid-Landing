@@ -130,7 +130,9 @@ export default function FAQPage() {
                 <AccordionItem
   key={i}
   value={`q${i + 1}`}
-  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4"
+  className={`group rounded-lg px-6 py-4 ${
+  i % 2 === 0 ? 'glow-card' : 'glow-card-red'
+}`}
 >
                   <AccordionTrigger className="hover:no-underline text-left font-semibold">
                     {faq.q}

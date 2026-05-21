@@ -79,7 +79,7 @@ export default function AboutUsPage() {
           <div className="max-w-3xl mx-auto space-y-6">
 
 <Card
-  className="relative overflow-visible bg-white/5 backdrop-blur-sm border p-8 md:p-10 space-y-5 glow-border"
+  className="relative overflow-visible bg-white/5 backdrop-blur-sm border glow-card p-8 md:p-10 space-y-5"
 >
               <h2 className="text-2xl font-bold">The Origin</h2>
               <p className="text-muted-foreground leading-relaxed">
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
               </p>
             </Card>
 
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 space-y-5">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 glow-card-red p-8 md:p-10 space-y-5">
               <h2 className="text-2xl font-bold">The Builder</h2>
               <div className="flex items-center gap-4 mb-2">
                 <img
@@ -121,7 +121,7 @@ export default function AboutUsPage() {
               </a>
             </Card>
 
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 space-y-5">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 glow-card p-8 md:p-10 space-y-5">
               <h2 className="text-2xl font-bold">What&apos;s Next</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Global leaderboard. More sounds. Things that probably shouldn&apos;t exist. SlapDroid is a living project — updates ship when they&apos;re ready.
@@ -148,3 +148,4 @@ export default function AboutUsPage() {
     </div>
   )
 }
+
